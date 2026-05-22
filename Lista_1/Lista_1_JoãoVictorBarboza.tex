@@ -1,0 +1,452 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+
+\title{Lista 1 - Modelagem Matemática}
+\author{João Victor Barboza Machado das Neves}
+\date{} % Deixe vazio para remover a data do \maketitle
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\begin{document}
+
+\maketitle
+
+\section*{Exercício 1: Fórmulas Dimensionais e Verificação de Homogeneidade}
+
+\subsection*{(a) Fórmulas dimensionais}
+A partir das quatro dimensões base do curso ($M$ para massa, $L$ para comprimento, $T$ para tempo e $\Theta$ para temperatura), derivamos as fórmulas dimensionais de cada grandeza substituindo suas relações definidoras:
+
+\begin{enumerate}
+    \item \textbf{Momento angular ($L$)}: 
+    Como $L = r \times p$, onde $[r] = L$ e $[p] = MLT^{-1}$, temos:
+    \[ [L] = L \cdot (MLT^{-1}) = ML^2T^{-1} \]
+    
+    \item \textbf{Torque ($\tau$)}: 
+    Como $\tau = r \times F$, onde $[r] = L$ e $[F] = MLT^{-2}$, temos:
+    \[ [\tau] = L \cdot (MLT^{-2}) = ML^2T^{-2} \]
+    
+    \item \textbf{Momento de inércia ($I$)}: 
+    Como $I = \int r^2 dm$, a dimensão depende apenas do integrando espacial e da massa infinitesimal:
+    \[ [I] = L^2 \cdot M = ML^2 \]
+    
+    \item \textbf{Viscosidade cinemática ($\nu$)}: 
+    Como $\nu = \mu / \rho$, onde $[\mu] = ML^{-1}T^{-1}$ e $[\rho] = ML^{-3}$:
+    \[ [\nu] = \frac{ML^{-1}T^{-1}}{ML^{-3}} = L^2T^{-1} \]
+    
+    \item \textbf{Calor específico ($c_p$)}: 
+    Isolando $c_p$ na equação $Q = mc_p\Delta T$, obtemos $c_p = \frac{Q}{m\Delta T}$. Sabendo que $[Q] = ML^2T^{-2}$, $[m] = M$ e $[\Delta T] = \Theta$:
+    \[ [c_p] = \frac{ML^2T^{-2}}{M \cdot \Theta} = L^2T^{-2}\Theta^{-1} \]
+    
+    \item \textbf{Constante de Stefan-Boltzmann ($\sigma$)}: 
+    Isolando $\sigma$ na relação $P/A = \sigma T^4$, obtemos $\sigma = \frac{P}{A T^4}$. Com $[P] = ML^2T^{-3}$, $[A] = L^2$ e $[T] = \Theta$:
+    \[ [\sigma] = \frac{ML^2T^{-3}}{L^2 \cdot \Theta^4} = MT^{-3}\Theta^{-4} \]
+\end{enumerate}
+
+\subsection*{(b) Verificação da Lei de Stokes}
+A força de arrasto é dada por $F_{drag} = 3\pi\mu dv$. 
+Analisando as dimensões do lado esquerdo, temos a dimensão de força:
+\[ [F_{drag}] = MLT^{-2} \]
+Analisando o lado direito, desconsideramos a constante adimensional $3\pi$ (cuja dimensão é $1$):
+\[ [3\pi\mu dv] = 1 \cdot [\mu] \cdot [d] \cdot [v] = (ML^{-1}T^{-1}) \cdot (L) \cdot (LT^{-1}) = MLT^{-2} \]
+Como os dois lados da igualdade possuem a mesma dimensão ($MLT^{-2}$), a equação é dimensionalmente homogênea.
+
+\subsection*{(c) Velocidade terminal da esfera}
+A equação proposta é $v_T = \frac{2}{9}\frac{(\rho_s - \rho_f)gr^2}{\mu}$.
+No lado esquerdo, a velocidade terminal possui dimensão:
+\[ [v_T] = LT^{-1} \]
+No lado direito, a subtração das densidades resulta em uma dimensão de densidade ($ML^{-3}$). Multiplicando os termos:
+\[ \left[\frac{2}{9}\frac{(\rho_s - \rho_f)gr^2}{\mu}\right] = \frac{(ML^{-3}) \cdot (LT^{-2}) \cdot (L^2)}{ML^{-1}T^{-1}} = \frac{ML^0T^{-2}}{ML^{-1}T^{-1}} = LT^{-1} \]
+Como os dois lados resultam em $LT^{-1}$, a equação é dimensionalmente homogênea. 
+
+\textbf{Eventuais erros:} Embora a equação seja dimensionalmente consistente, a análise dimensional não permite validar constantes puramente numéricas. Portanto, não é possível confirmar através deste método se o fator $\frac{2}{9}$ está empiricamente ou teoricamente correto, sendo esta uma limitação inerente da verificação por homogeneidade.
+
+\section*{Exercício 2: Teorema de Buckingham Pi: Transferência de Calor em um Tubo}
+
+\subsection*{(a) Matriz Dimensional e Número de Produtos}
+A matriz dimensional $D$ é construída organizando as dimensões base ($M, L, T, \Theta$) nas linhas e as variáveis fornecidas nas colunas ($Q, d, L_{tubo}, \Delta T, \kappa, \upsilon, \rho, c_p, \mu$):
+
+\[
+D = \left( \begin{array}{ccccccccc}
+1 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 \\
+2 & 1 & 1 & 0 & 1 & 1 & -3 & 2 & -1 \\
+-3 & 0 & 0 & 0 & -3 & -1 & 0 & -2 & -1 \\
+0 & 0 & 0 & 1 & -1 & 0 & 0 & -1 & 0 
+\end{array} \right)
+\]
+
+O número de variáveis é $N_V = 9$. O posto da matriz (rank) é $N_D = 4$, uma vez que as quatro dimensões base são independentes no sistema. Pelo Teorema de Buckingham $\pi$, o número de produtos adimensionais independentes é:
+\[ N_P = N_V - N_D = 9 - 4 = 5 \]
+
+\subsection*{(b) e (c) Identificação dos Produtos Adimensionais}
+Aplicando o algoritmo de Rayleigh ou analisando o espaço nulo da matriz $D$, identificamos os seguintes grupos clássicos e interpretáveis:
+
+\begin{enumerate}
+    \item \textbf{Razão de aspecto ($\pi_1$):} Relaciona as duas escalas de comprimento do sistema.
+    \[ \pi_1 = \frac{L_{tubo}}{d} \]
+    \item \textbf{Número de Reynolds ($Re$):} Razão entre forças inerciais e viscosas.
+    \[ \pi_2 = Re = \frac{\rho \upsilon d}{\mu} \]
+    \item \textbf{Número de Prandtl ($Pr$):} Razão entre difusividade de momento e difusividade térmica.
+    \[ \pi_3 = Pr = \frac{\mu c_p}{\kappa} \]
+    \item \textbf{Número de Nusselt ($Nu$):} Adimensionalização da taxa de transferência de calor.
+    \[ \pi_4 = Nu = \frac{Q}{\kappa \Delta T d} \]
+    \item \textbf{Inverso do Número de Eckert ($\pi_5$):} Relaciona a entalpia térmica com a energia cinética do fluido.
+    \[ \pi_5 = \frac{c_p \Delta T}{\upsilon^2} \]
+\end{enumerate}
+
+\subsection*{(d) Discussão sobre Escolhas de Modelagem}
+Se soubermos previamente que a transferência de calor depende da combinação $\kappa \Delta T L$, o número de variáveis iniciais $N_V$ diminui. Como $N_P = N_V - N_D$, a quantidade de grupos adimensionais independentes também reduz.
+
+Esta escolha de modelagem impacta diretamente a precisão e a utilidade do resultado. Minimizar $N_V$ através do agrupamento de variáveis fisicamente relacionadas permite obter um "resultado mais afiado" (\textit{sharper result}), pois restringe a forma funcional da solução. Em termos práticos, isso significa que a análise dimensional fornece uma estrutura muito mais próxima da realidade física (reduzindo a incerteza de funções desconhecidas) e diminui drasticamente o esforço experimental necessário para validar o modelo, conforme o argumento de redução de dados de Lemons.
+
+\section*{Exercício 3: Dimensões Efetivas vs. Impostas}
+
+\subsection*{(a) Matriz Dimensional e Produto Adimensional}
+As variáveis relevantes para o equilíbrio estático da massa suspensa pela mola são a extensão de equilíbrio $x_{eq}$, a massa $m$, a constante da mola $k$ e a aceleração da gravidade $g$. Suas dimensões na base $\{M, L, T\}$ são:
+\begin{itemize}
+    \item $[x_{eq}] = L$
+    \item $[m] = M$
+    \item $[k] = MT^{-2}$
+    \item $[g] = LT^{-2}$
+\end{itemize}
+
+A matriz dimensional $D$, com as linhas representando $M, L$ e $T$, e as colunas representando $x_{eq}, m, k, g$, é dada por:
+\[
+D = \left( \begin{array}{cccc}
+0 & 1 & 1 & 0 \\
+1 & 0 & 0 & 1 \\
+0 & 0 & -2 & -2
+\end{array} \right)
+\]
+Calculando o posto da matriz, observamos que as três linhas são linearmente independentes, logo, $\text{rank}(D) = N_D = 3$. Como temos $N_V = 4$ variáveis, o número de produtos adimensionais independentes é $N_P = N_V - N_D = 4 - 3 = 1$. 
+O produto adimensional obtido pela relação entre as forças do sistema é:
+\[ \pi_1 = \frac{k x_{eq}}{m g} \]
+
+\subsection*{(b) Dimensões Efetivas com Força Imposta}
+Pela segunda lei de Newton, o equilíbrio estático nos dá $k x_{eq} = mg$, introduzindo a dimensão de força $F = MLT^{-2}$ de forma natural. Ao impor a Força ($F$) como uma dimensão independente, notamos que a massa $M$ e o tempo $T$ sempre aparecem acoplados na forma $MT^{-2}$ para as variáveis de força da mola e força peso.
+Se utilizarmos a base dimensional $\{F, L\}$, as dimensões das variáveis que compõem as forças passam a ser expressas em função de $F$. O número efetivo de dimensões base cai para $N_D = 2$. 
+Recalculando os produtos adimensionais com $N_D = 2$:
+Considerando as grandezas combinadas para as forças ($W = mg$ e $F_{mola} = kx_{eq}$), ou seja, $N_V = 3$ variáveis efetivas (força da mola, força peso e comprimento), temos $N_P = 3 - 2 = 1$, chegando ao mesmo produto adimensional interpretável.
+
+\subsection*{(c) Comparação e Utilidade}
+O resultado obtido em (b) é analiticamente idêntico ao que se obtém simplesmente resolvendo a equação de equilíbrio $k x_{eq} = mg$, que diretamente fornece a relação adimensional $\frac{k x_{eq}}{mg} = 1$. 
+A imposição de dimensões é útil (uma escolha de modelagem "mais arte do que algoritmo") quando permite enxergar a estrutura física do problema de forma mais transparente, reduzindo o número de dimensões efetivas $N_D$ e minimizando $N_V$. Contudo, ela equivale a "já saber a resposta" quando forçamos o agrupamento de variáveis físicas antes da análise (como assumir que $m$ e $g$ só atuam como a força peso combinada), o que não descobre o adimensional, mas apenas reescreve a equação de equilíbrio conhecida.
+
+\section*{Exercício 4: Propagação Analítica de Erros}
+
+\subsection*{(a) Cálculos com desvio padrão}
+Aplicando as regras de propagação de incerteza de primeira ordem (soma em quadratura), temos:
+
+\begin{enumerate}
+    \item[(i)] $f = \frac{15.000}{5,0 \pm 0,1}$ \\
+    Trata-se de uma divisão por uma constante exata. O valor central é $f = 15.000 / 5,0 = 3000$. A incerteza relativa é a mesma do denominador:
+    \[ \frac{\sigma_f}{f} = \frac{0,1}{5,0} = 0,02 \implies \sigma_f = 0,02 \times 3000 = 60 \]
+    \textbf{Resultado:} $3000 \pm 60$
+
+    \item[(ii)] $f = \frac{30,0 \pm 0,9}{5,0 \pm 0,2}$ \\
+    O valor central é $f = 30,0 / 5,0 = 6,0$. Usando a regra da divisão (soma das variâncias relativas):
+    \begin{align*}
+        \left(\frac{\sigma_f}{6,0}\right)^2 &= \left(\frac{0,9}{30,0}\right)^2 + \left(\frac{0,2}{5,0}\right)^2 = (0,03)^2 + (0,04)^2 = 0,0025 \\
+        \frac{\sigma_f}{6,0} &= \sqrt{0,0025} = 0,05 \implies \sigma_f = 0,05 \times 6,0 = 0,3
+    \end{align*}
+    \textbf{Resultado:} $6,0 \pm 0,3$
+
+    \item[(iii)] $f = \log_{10}(1000 \pm 2)$ \\
+    O valor central é $\log_{10}(1000) = 3$. Pela regra da derivada, $f'(x) = \frac{1}{x \ln(10)}$:
+    \[ \sigma_f = \left| \frac{1}{x \ln(10)} \right| \sigma_x = \frac{1}{1000 \ln(10)} \times 2 \approx 0,000868 \]
+    Arredondando para manter a consistência dos algarismos significativos:
+    \textbf{Resultado:} $3,0000 \pm 0,0009$
+
+    \item[(iv)] $f = (20,0 \pm 0,3) \exp[-(2,00 \pm 0,01)]$ \\
+    Valor central: $f = 20,0 \times \exp(-2,00) \approx 2,7067$. \\
+    Para a exponencial $E = \exp(-y)$, a incerteza relativa é $\frac{\sigma_E}{E} = \sigma_y = 0,01$.
+    O termo $x$ possui incerteza relativa de $\frac{0,3}{20,0} = 0,015$. Compondo o produto via RSS:
+    \begin{align*}
+        \left(\frac{\sigma_f}{f}\right)^2 &= (0,015)^2 + (0,01)^2 = 0,000325 \\
+        \frac{\sigma_f}{f} &= \sqrt{0,000325} \approx 0,018 \implies \sigma_f = 0,018 \times 2,7067 \approx 0,05
+    \end{align*}
+    \textbf{Resultado:} $2,71 \pm 0,05$
+\end{enumerate}
+
+\subsection*{(b) Densidade do cilindro}
+A fórmula da densidade é $\rho = \frac{4m}{\pi d^2 h}$, com $m = 150,0 \pm 0,5$ g, $d = 2,00 \pm 0,02$ cm e $h = 10,00 \pm 0,05$ cm. 
+O valor central é:
+\[ \rho = \frac{4 \times 150,0}{\pi \times (2,00)^2 \times 10,00} = \frac{15}{\pi} \approx 4,7746 \text{ g/cm}^3 \]
+A incerteza é calculada pela regra de produtos e potências:
+\begin{align*}
+    \left(\frac{\sigma_\rho}{\rho}\right)^2 &= \left(\frac{\sigma_m}{m}\right)^2 + \left(2\frac{\sigma_d}{d}\right)^2 + \left(\frac{\sigma_h}{h}\right)^2 \\
+    \left(\frac{\sigma_\rho}{\rho}\right)^2 &= \left(\frac{0,5}{150,0}\right)^2 + \left(2 \times \frac{0,02}{2,00}\right)^2 + \left(\frac{0,05}{10,00}\right)^2 \\
+    \left(\frac{\sigma_\rho}{\rho}\right)^2 &\approx 1,11 \times 10^{-5} + 4,00 \times 10^{-4} + 2,5 \times 10^{-5} \approx 4,36 \times 10^{-4}
+\end{align*}
+A incerteza relativa é $\frac{\sigma_\rho}{\rho} \approx \sqrt{4,36 \times 10^{-4}} \approx 0,0209$. \\
+A incerteza absoluta é $\sigma_\rho = 0,0209 \times 4,7746 \approx 0,10 \text{ g/cm}^3$.
+
+\textbf{Resultado:} $\rho = 4,77 \pm 0,10 \text{ g/cm}^3$ \\
+A medida que mais contribui para a incerteza final é o \textbf{diâmetro ($d$)}, pois sua variância relativa $(4,00 \times 10^{-4})$ é uma ordem de grandeza maior que as demais. Isso ocorre porque o diâmetro aparece elevado ao quadrado na fórmula, fazendo com que seu erro relativo seja multiplicado por dois antes de ser elevado ao quadrado na soma.
+
+\subsection*{(c) Meia-vida e constante de velocidade}
+Dado $\tau_{1/2} = 600 \pm 40$ s. A constante de velocidade é $k = \frac{\ln(2)}{\tau_{1/2}}$.
+O valor central é $k \approx \frac{0,6931}{600} \approx 0,001155 \text{ s}^{-1}$. \\
+Como a relação é um quociente por uma constante exata, a regra da potência dita que o erro relativo se mantém em módulo:
+\[ \frac{\sigma_k}{k} = |-1| \frac{\sigma_\tau}{\tau} = \frac{40}{600} \approx 0,0667 \implies \sigma_k = 0,0667 \times 0,001155 \approx 0,000077 \text{ s}^{-1} \]
+Logo, $k = (1,16 \pm 0,08) \times 10^{-3} \text{ s}^{-1}$.
+
+Para o cálculo de $\ln(k)$:
+Valor central: $\ln(0,001155) \approx -6,76$. \\
+Pela regra de propagação (ou aplicando a derivada $d(\ln x)/dx = 1/x$), a incerteza absoluta de um logaritmo natural é idêntica à incerteza relativa do seu argumento:
+\[ \sigma_{\ln(k)} = \frac{\sigma_k}{k} \approx 0,0667 \approx 0,07 \]
+Logo, $\ln(k) = -6,76 \pm 0,07$.
+
+\textbf{Explicação:} A incerteza relativa de $k$ é igual à incerteza relativa de $\tau_{1/2}$ porque a operação é apenas uma inversão ($x^{-1}$) escalonada por uma constante. A regra da potência $(|a|\sigma_x/x)$ com $a = -1$ preserva a magnitude do erro relativo. A incerteza absoluta de $\ln(k)$ é igual à incerteza relativa de $k$ como consequência direta do cálculo diferencial aplicado à propagação de erros de primeira ordem, onde o fator de sensibilidade (a derivada $\frac{1}{k}$) atua convertendo o erro absoluto em relativo ($\sigma_f = |\frac{1}{k}|\sigma_k$).
+
+\section*{Exercício 5: Propagação de Erros por Monte Carlo}
+
+\subsection*{(a) Propagação Analítica}
+A partir da lei dos gases ideais $n = \frac{pV}{RT}$, e sendo a constante universal dos gases $R$ exata, calculamos o valor central de número de mols:
+\[ n = \frac{101,3 \times 10^3 \cdot 2,50 \times 10^{-3}}{8,314 \cdot 295,0} \approx 0,10325 \text{ mol} \]
+Aplicando a regra de propagação de erros de primeira ordem em quadratura (termos relativos para produtos e quocientes):
+\[ \left(\frac{\sigma_n}{n}\right)^2 = \left(\frac{\sigma_p}{p}\right)^2 + \left(\frac{\sigma_V}{V}\right)^2 + \left(\frac{\sigma_T}{T}\right)^2 \]
+Substituindo os valores, obtemos a incerteza relativa $\sigma_n/n \approx 0,0216$. Consequentemente, a incerteza padrão é $\sigma_n \approx 0,00223 \text{ mol}$. O resultado analítico é $n = 0,103 \pm 0,002 \text{ mol}$.
+
+\subsection*{(b) e (c) Implementação e Gráficos de Monte Carlo}
+A simulação de Monte Carlo com $N = 50.000$ amostras foi implementada e executada via script Python (anexo ao trabalho). O histograma da distribuição gerada e a verificação de normalidade via gráfico Q-Q estão apresentados na Figura 1.
+
+\begin{figure}[H]
+    \centering
+    % Certifique-se de fazer o upload do arquivo ex05_independent.pdf para o Overleaf
+    \includegraphics[width=0.9\textwidth]{ex05_independent.pdf}
+    \caption{Distribuição de probabilidade do número de mols ($n$) e gráfico Q-Q para amostras de pressão e temperatura independentes.}
+\end{figure}
+
+\subsection*{(d) Análise da Distribuição de Monte Carlo (Independente)}
+Ao executar a simulação para variáveis normais independentes, os resultados de média e desvio padrão convergem quase perfeitamente para os valores analíticos de primeira ordem ($\mu_{MC} \approx 0,10325$ e $\sigma_{MC} \approx 0,00223$). 
+Ao analisar o histograma e o gráfico Q-Q (Figura 1), a distribuição de Monte Carlo apresenta-se visualmente normal. O desvio da normalidade previsto pela não-linearidade do quociente (como o viés provocado pela divisão da variável aleatória Temperatura $T$) é insignificante neste caso. Isso ocorre porque o erro relativo da temperatura é muito pequeno ($\sigma_T/T \approx 0,6\%$), mantendo a função num regime quase linear na vizinhança das médias. 
+
+\subsection*{(e) Impacto da Correlação Multivariada}
+Ao introduzir a correlação positiva ($\rho_{p,T} = 0,3$) simulando variáveis através de uma distribuição normal multivariada no script Python, observamos que a incerteza padrão $\sigma_n$ diminui (para aproximadamente $0,00220$) em relação ao cenário independente.
+
+\begin{figure}[H]
+    \centering
+    % Certifique-se de fazer o upload do arquivo ex05_correlated.pdf para o Overleaf
+    \includegraphics[width=0.9\textwidth]{ex05_correlated.pdf}
+    \caption{Distribuição de probabilidade do número de mols ($n$) considerando correlação positiva entre pressão e temperatura.}
+\end{figure}
+
+Isso se deve à estrutura algébrica da fórmula $n = \frac{pV}{RT}$. Como $p$ e $T$ dividem a mesma relação, um aumento estatisticamente associado na pressão (numerador) tende a ser acompanhado por um aumento na temperatura (denominador). Essa variação simultânea e concordante faz com que as flutuações se cancelem parcialmente, suprimindo o espalhamento total da variável dependente $n$. Matematicamente, o termo de covariância na propagação analítica carrega um sinal negativo devido à derivada parcial negativa em relação a $T$, confirmando o decréscimo da variância total.
+
+\section*{Exercício 6: Escalamento da Equação do Pêndulo Simples}
+
+A equação governante é dada por $mL\ddot{\theta} + mg\sin\theta = 0$, que simplifica para:
+\[ \ddot{\theta} + \frac{g}{L}\sin\theta = 0, \quad \theta(0) = \theta_0, \quad \dot{\theta}(0) = 0 \]
+
+\subsection*{(a) Escalamento com $\theta$ como variável dependente}
+Mantendo $\theta$ como variável dependente e introduzindo o tempo adimensional $\bar{t} = t/t_c$, a regra da cadeia fornece $\ddot{\theta} = (1/t_c^2)\frac{d^2\theta}{d\bar{t}^2}$. Substituindo na EDO:
+\[ \frac{1}{t_c^2}\frac{d^2\theta}{d\bar{t}^2} + \frac{g}{L}\sin\theta = 0 \implies \frac{d^2\theta}{d\bar{t}^2} + \frac{t_c^2 g}{L}\sin\theta = 0 \]
+Para que o coeficiente do termo restaurador seja unitário, escolhemos a escala de tempo natural do pêndulo:
+\[ t_c = \sqrt{\frac{L}{g}} \]
+A equação escalada resulta em $\frac{d^2\theta}{d\bar{t}^2} + \sin\theta = 0$. Neste estágio, permanece apenas um parâmetro adimensional no problema, que está "escondido" na condição inicial: $\theta(0) = \theta_0$.
+
+\subsection*{(b) Introdução de $\bar{\theta} = \theta/\theta_0$}
+Para garantir que a variável dependente varie no intervalo $[0, 1]$, definimos $\bar{\theta} = \theta/\theta_0$. Substituindo $\theta = \theta_0\bar{\theta}$ na equação anterior:
+\[ \theta_0\frac{d^2\bar{\theta}}{d\bar{t}^2} + \sin(\theta_0\bar{\theta}) = 0 \implies \frac{d^2\bar{\theta}}{d\bar{t}^2} + \frac{\sin(\theta_0\bar{\theta})}{\theta_0} = 0 \]
+O parâmetro adimensional que aparece explicitamente na equação é a amplitude inicial $\theta_0$.
+
+\subsection*{(c) Limite de Pequenos Ângulos e Comparação}
+No limite de pequenos ângulos, utilizamos a aproximação $\sin\theta \approx \theta$. Para a nossa variável escalada, $\sin(\theta_0\bar{\theta}) \approx \theta_0\bar{\theta}$. A equação torna-se:
+\[ \frac{d^2\bar{\theta}}{d\bar{t}^2} + \frac{\theta_0\bar{\theta}}{\theta_0} = 0 \implies \frac{d^2\bar{\theta}}{d\bar{t}^2} + \bar{\theta} = 0 \]
+Com as condições iniciais $\bar{\theta}(0) = 1$ e $\bar{\theta}'(0) = 0$, esta equação é totalmente livre de parâmetros. Comparando com o oscilador harmônico da Aula 5 ($\bar{u}'' + \bar{u} = 0$), observamos que são matematicamente idênticos quando o parâmetro de velocidade inicial $\alpha$ é zero.
+
+\subsection*{(d) Teorema de Buckingham $\pi$ vs. Escalamento}
+Para o conjunto de variáveis $\{\theta, t, L, g, \theta_0\}$, temos $N_V = 5$ variáveis. As dimensões envolvidas são Comprimento ($L$) e Tempo ($T$), logo $N_D = 2$. O Teorema $\pi$ prevê:
+\[ N_P = N_V - N_D = 5 - 2 = 3 \text{ grupos adimensionais} \]
+Os grupos seriam $\pi_1 = \theta$, $\pi_2 = \theta_0$ e $\pi_3 = t\sqrt{g/L}$.
+
+\textbf{Discrepância:} O escalamento da EDO reduziu o problema a apenas 1 parâmetro relevante ($\theta_0$). Isso ocorre porque o Teorema $\pi$ é puramente algébrico e não enxerga a estrutura da equação diferencial. O escalamento é "mais forte" pois revela que $L$ e $g$ sempre aparecem acoplados na razão $g/L$, permitindo uma redução maior do que a análise dimensional cega.
+
+\section*{Exercício 7: Escalamento do Modelo de Crescimento Logístico}
+
+A equação logística para crescimento populacional é dada por:
+\[ u'(t) = \rho u \left(1 - \frac{u}{M}\right), \quad u(0) = u_0 \]
+
+\subsection*{(a) Procedimento de Escalamento em Cinco Etapas}
+\begin{enumerate}
+    \item \textbf{Identificação das variáveis:} Independente: $t$; Dependente: $u$.
+    \item \textbf{Introdução das variáveis adimensionais:} Definimos $\bar{t} = \frac{t}{t_c}$ e $\bar{u} = \frac{u}{u_c}$. O enunciado define a escala populacional como a capacidade de suporte, logo $u_c = M$.
+    \item \textbf{Substituição (Regra da Cadeia):} Temos $u = M\bar{u}$ e $t = t_c\bar{t}$, o que implica $u'(t) = \frac{M}{t_c}\frac{d\bar{u}}{d\bar{t}}$. Substituindo na EDO:
+    \[ \frac{M}{t_c}\frac{d\bar{u}}{d\bar{t}} = \rho (M\bar{u}) \left(1 - \frac{M\bar{u}}{M}\right) \implies \frac{M}{t_c}\frac{d\bar{u}}{d\bar{t}} = \rho M \bar{u}(1 - \bar{u}) \]
+    Para a condição inicial: $M\bar{u}(0) = u_0$.
+    \item \textbf{Divisão das dimensões:} Dividimos toda a equação por $\frac{M}{t_c}$:
+    \[ \frac{d\bar{u}}{d\bar{t}} = (\rho t_c) \bar{u}(1 - \bar{u}) \]
+    \item \textbf{Estimativa de Escala:} Para que o lado direito seja da ordem $\mathcal{O}(1)$, exigimos que o coeficiente adimensional seja 1:
+    \[ \rho t_c = 1 \implies t_c = \frac{1}{\rho} \]
+\end{enumerate}
+A EDO escalada final e sua condição inicial são:
+\[ \frac{d\bar{u}}{d\bar{t}} = \bar{u}(1 - \bar{u}), \quad \bar{u}(0) = \frac{u_0}{M} \]
+A EDO em si não possui parâmetros. O único parâmetro adimensional reside na condição inicial: $\alpha = \frac{u_0}{M}$.
+
+\subsection*{(b) Interpretação Física do Parâmetro $\alpha$}
+O modelo escalado possui exatamente um parâmetro adimensional, $\alpha = u_0/M$, que representa a proporção da capacidade de suporte que já está ocupada no instante inicial.
+\begin{itemize}
+    \item $\alpha \ll 1$: A população inicial é muito pequena comparada à capacidade de suporte do meio. O termo $(1-\bar{u}) \approx 1$, e o crescimento inicial será quase puramente exponencial (semelhante ao modelo malthusiano).
+    \item $\alpha \approx 1$: A população inicial já está muito próxima do limite sustentável do ambiente. A taxa de crescimento será próxima de zero, e a população permanecerá aproximadamente constante.
+\end{itemize}
+
+\subsection*{(c) Verificação da Solução Exata}
+A solução exata dimensional é:
+\[ u(t) = \frac{M u_0}{u_0 + (M - u_0)e^{-\rho t}} \]
+Substituindo $u = M\bar{u}$, $t = \bar{t}/\rho$ e $u_0 = \alpha M$:
+\[ M\bar{u}(\bar{t}) = \frac{M (\alpha M)}{\alpha M + (M - \alpha M)e^{-\rho(\bar{t}/\rho)}} \]
+Dividindo o numerador e o denominador por $M^2$:
+\[ \bar{u}(\bar{t}) = \frac{\alpha}{\alpha + (1 - \alpha)e^{-\bar{t}}} \]
+\textbf{Verificando os limites:}
+\begin{itemize}
+    \item Para $\bar{t} = 0$: $e^0 = 1 \implies \bar{u}(0) = \frac{\alpha}{\alpha + 1 - \alpha} = \frac{\alpha}{1} = \alpha$.
+    \item Para $\bar{t} \to \infty$: $e^{-\infty} \to 0 \implies \bar{u}(\infty) = \frac{\alpha}{\alpha + 0} = 1$.
+\end{itemize}
+Ambos os limites confirmam o comportamento esperado do modelo escalado.
+
+\subsection*{(d) Teorema de Buckingham $\pi$ vs. Escalamento}
+As variáveis do problema são $\{u, t, \rho, M, u_0\}$, resultando em $N_V = 5$. As dimensões base são População ($P$) e Tempo ($T$), logo $N_D = 2$.
+Pelo Teorema de Buckingham $\pi$, o número de grupos adimensionais independentes é:
+\[ N_P = N_V - N_D = 5 - 2 = 3 \]
+Os três grupos naturais seriam $\pi_1 = u/M$, $\pi_2 = u_0/M$ e $\pi_3 = \rho t$.
+
+\textbf{Comparação:} O Teorema $\pi$ indica corretamente a existência de três grandezas adimensionais. Contudo, a técnica de escalamento aplicada na parte (a) é mais profunda: ela utiliza esses três grupos, transformando $\pi_1$ na variável dependente $\bar{u}$, $\pi_3$ na variável independente $\bar{t}$ e $\pi_2$ no único parâmetro livre do sistema $\alpha$. Enquanto o Teorema $\pi$ nos dá apenas uma lista algébrica, o escalamento nos dá a estrutura dinâmica, provando que a família de curvas do crescimento logístico depende exclusivamente de um único parâmetro $\alpha$.
+
+\section*{Exercício 8: Escalamento com Múltiplas Escalas de Tempo}
+
+A lei de resfriamento de Newton com vizinhança oscilante é dada por:
+\[ T'(t) = -k(T - T_s(t)), \quad T(0) = T_0, \quad T_s(t) = T_m + a \sin(\omega t) \]
+Substituindo $T_s(t)$ na EDO:
+\[ \frac{dT}{dt} = -k(T - T_m - a \sin(\omega t)) \]
+
+\subsection*{(a) Escalamento com $t_c = 1/k$}
+Definimos a temperatura adimensional e o tempo adimensional como:
+\[ \bar{T} = \frac{T - T_0}{T_m - T_0} \quad \text{e} \quad \bar{t} = \frac{t}{t_c} = kt \]
+A partir da definição, $T = T_0 + (T_m - T_0)\bar{T}$. Pela regra da cadeia, $\frac{dT}{dt} = k(T_m - T_0)\frac{d\bar{T}}{d\bar{t}}$.
+Substituindo na EDO original:
+\[ k(T_m - T_0)\frac{d\bar{T}}{d\bar{t}} = -k [T_0 + (T_m - T_0)\bar{T} - T_m - a \sin(\omega \bar{t}/k)] \]
+Dividindo ambos os lados por $k(T_m - T_0)$ e reorganizando os termos constantes:
+\[ \frac{d\bar{T}}{d\bar{t}} = -\frac{T_0 - T_m}{T_m - T_0} - \bar{T} + \frac{a}{T_m - T_0}\sin\left(\frac{\omega}{k}\bar{t}\right) \]
+\[ \frac{d\bar{T}}{d\bar{t}} = 1 - \bar{T} + \frac{a}{T_m - T_0}\sin\left(\frac{\omega}{k}\bar{t}\right) \]
+A equação escalada apresenta dois parâmetros adimensionais:
+\begin{itemize}
+    \item $\alpha = \frac{a}{T_m - T_0}$ : Razão entre a amplitude de oscilação e a diferença média de temperatura.
+    \item $\beta = \frac{\omega}{k}$ : Razão entre a frequência de oscilação do meio e a taxa de transferência de calor.
+\end{itemize}
+A EDO final é $\frac{d\bar{T}}{d\bar{t}} = 1 - \bar{T} + \alpha \sin(\beta \bar{t})$, com a condição inicial $\bar{T}(0) = 0$.
+
+\subsection*{(b) Teorema de Buckingham $\pi$ vs. Escalamento}
+Aplicando o Teorema de Buckingham às $N_V = 5$ variáveis independentes $(k, T_0, T_m, a, \omega)$ com $N_D = 2$ dimensões bases (Tempo e Temperatura), a previsão algébrica é de $N_P = 5 - 2 = 3$ grupos adimensionais independentes. No entanto, o escalamento em (a) revelou apenas 2 grupos ($\alpha$ e $\beta$).
+
+\textbf{Explicação:} O escalamento consegue uma redução mais profunda porque "enxerga" a estrutura matemática da EDO. Na lei de resfriamento, as temperaturas de referência $T_0$ e $T_m$ aparecem unidas estritamente pela sua diferença $(T_m - T_0)$, constituindo um único gradiente térmico efetivo. O Teorema $\pi$ é um método algébrico cego que trata $T_0$ e $T_m$ como parâmetros completamente distintos e isolados, falhando em capturar essa propriedade estrutural aditiva da física do problema.
+
+\subsection*{(c) Escalamento Alternativo com $t_c = 1/\omega$}
+Adotando a escala temporal da oscilação, temos $\bar{t} = \omega t$.
+A derivada torna-se $\frac{dT}{dt} = \omega(T_m - T_0)\frac{d\bar{T}}{d\bar{t}}$. Substituindo na EDO e dividindo por $\omega(T_m - T_0)$:
+\[ \frac{d\bar{T}}{d\bar{t}} = \frac{k}{\omega} \left[ \frac{T_m - T_0}{T_m - T_0} - \bar{T} + \frac{a}{T_m - T_0}\sin(\bar{t}) \right] \]
+Definindo $\gamma = \frac{k}{\omega} = \beta^{-1}$, a nova equação escalada é:
+\[ \frac{d\bar{T}}{d\bar{t}} = \gamma (1 - \bar{T} + \alpha \sin \bar{t}) \]
+\textbf{Condições físicas de aplicabilidade:}
+\begin{itemize}
+    \item A escala $t_c = 1/k$ é mais apropriada quando $k \gg \omega$ (transferência de calor rápida frente à oscilação). O foco de observação recai no relaxamento térmico inicial (transiente rápido).
+    \item A escala $t_c = 1/\omega$ é mais apropriada quando $\omega \gg k$ (meio oscila muito mais rápido que o corpo consegue responder). O foco de observação é o comportamento e a estrutura da força motriz oscilatória.
+\end{itemize}
+
+\subsection*{(d) Escolha de Escalamento para Simulação Numérica Global}
+Se o objetivo é ter uma única escolha robusta para simulação numérica válida para todos os limites de $\alpha$ e $\beta$, a escala \textbf{$t_c = 1/\omega$} (ou uma generalização como $t_c = \min(1/k, 1/\omega)$) é preferível na prática computacional. 
+
+\textbf{Por quê?} Em métodos numéricos para EDOs, o passo de integração $\Delta \bar{t}$ costuma ser $\mathcal{O}(0,1)$. Se adotássemos $t_c = 1/k$ e o sistema tivesse alta frequência térmica ($\beta \gg 1$), o termo $\sin(\beta \bar{t})$ oscilaria furiosamente dentro de um único passo $\Delta \bar{t}$, levando a erros massivos de \textit{aliasing} (o \textit{solver} pularia os picos e vales da oscilação), a menos que o passo numérico fosse forçado a ser microscopicamente pequeno. Ao adotar $t_c = 1/\omega$, o termo forçante se estabiliza em $\sin(\bar{t})$, que é perfeitamente resolvido por um passo $\Delta \bar{t} \sim 0,1$, garantindo que a frequência de \textit{Nyquist} do integrador sempre acompanhe a força externa, independentemente do quão lento seja o amortecimento térmico ($k$).
+
+\section*{Exercício 9: Projétil em um Campo Gravitacional Variável}
+
+A equação do movimento é:
+\[ h''(t) = -\frac{R^2 g}{(h + R)^2}, \quad h(0) = 0, \quad h'(0) = v_0 \]
+
+\subsection*{(a) Análise do Teorema de Buckingham $\pi$}
+O problema possui $N_V = 5$ variáveis ($h, t, R, g, v_0$) descritas por $N_D = 2$ dimensões base (Comprimento e Tempo). Pelo Teorema de Buckingham $\pi$, existem $N_P = 5 - 2 = 3$ produtos adimensionais independentes. Escolhendo $R$ e $g$ como dimensões base (referências da gravidade planetária), os três grupos são:
+\[ \pi_1 = \frac{h}{R}, \quad \pi_2 = t \sqrt{\frac{g}{R}}, \quad \pi_3 = \frac{v_0}{\sqrt{Rg}} \]
+
+\subsection*{(b) Escalamento Primário e o Parâmetro $\epsilon$}
+Adotamos o escalamento planetário $h_c = R$. Definindo $\bar{h} = h/R$ e $\bar{t} = t/t_c$.
+A condição inicial requer $\bar{h}'(0) = 1$. Sabendo que $h'(t) = (R/t_c)\bar{h}'(\bar{t})$, forçamos a igualdade:
+\[ \frac{R}{t_c} \cdot 1 = v_0 \implies t_c = \frac{R}{v_0} \]
+Substituindo na EDO por meio da regra da cadeia ($h'' = \frac{R}{t_c^2}\bar{h}''$):
+\[ \frac{R}{(R/v_0)^2} \frac{d^2\bar{h}}{d\bar{t}^2} = -\frac{R^2 g}{(R\bar{h} + R)^2} \implies \frac{v_0^2}{R}\frac{d^2\bar{h}}{d\bar{t}^2} = -\frac{g}{(\bar{h} + 1)^2} \]
+Isolando a derivada e definindo $\epsilon = \frac{v_0}{\sqrt{Rg}}$:
+\[ \frac{d^2\bar{h}}{d\bar{t}^2} = -\frac{Rg}{v_0^2}\frac{1}{(\bar{h} + 1)^2} \implies \frac{d^2\bar{h}}{d\bar{t}^2} = -\frac{1}{\epsilon^2 (\bar{h} + 1)^2} \]
+\textbf{Interpretação Física:} O parâmetro $\epsilon$ expressa a razão entre a velocidade de lançamento do projétil e a escala de velocidade de uma órbita terrestre baixa ($\sqrt{Rg}$). Quando $\epsilon^2 = 2$, a energia cinética inicial iguala a energia de ligação gravitacional, indicando a velocidade de escape do planeta.
+
+\subsection*{(c) Comportamento das Trajetórias Numéricas}
+A EDO escalada primária foi resolvida numericamente via Python para $\epsilon^2 \in \{0.01, 0.1, 0.5, 1.0, 2.0\}$. Conforme a Figura 3:
+\begin{itemize}
+    \item Para pequenos valores ($\epsilon^2 = 0.01, 0.1$), o projétil atinge alturas diminutas relativas ao raio da Terra e retorna em formato quase parabólico.
+    \item Para $\epsilon^2 = 1.0$, a força da gravidade cai consideravelmente ao longo da trajetória, esticando o tempo de voo e a altura máxima.
+    \item Para $\epsilon^2 = 2.0$, o projétil atinge a velocidade de escape. A curva nunca retorna a $\bar{h}=0$, crescendo indefinidamente (assíntota aberta).
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{ex09_primary_scaling.pdf}
+    \caption{Trajetórias do projétil utilizando o escalamento primário ($h_c = R$). A curva para $\epsilon^2=2.0$ demonstra a condição de escape gravitacional.}
+\end{figure}
+
+\subsection*{(d) Escalamento Alternativo para Baixas Velocidades}
+Para garantir um limite matematicamente rigoroso, o escalamento que reduz a cinemática à clássica equação $\bar{h}'' = -1$ com a condição de contorno $\bar{h}'(0) = 1$ utiliza as escalas:
+\[ h_c = \frac{v_0^2}{g} \quad \text{e} \quad t_c = \frac{v_0}{g} \]
+Substituindo $h = (v_0^2/g)\bar{h}$ e $t = (v_0/g)\bar{t}$ na EDO original:
+\[ \frac{v_0^2/g}{(v_0/g)^2} \frac{d^2\bar{h}}{d\bar{t}^2} = -\frac{R^2 g}{\left(\frac{v_0^2}{g}\bar{h} + R\right)^2} \implies g \frac{d^2\bar{h}}{d\bar{t}^2} = -\frac{g}{\left(\frac{v_0^2}{Rg}\bar{h} + 1\right)^2} \]
+Substituindo a relação de $\epsilon$:
+\[ \frac{d^2\bar{h}}{d\bar{t}^2} = -\frac{1}{(1 + \epsilon^2 \bar{h})^2} \]
+No limite em que $\epsilon \to 0$ (o raio da Terra é "infinito" em relação à altura do salto), o termo $\epsilon^2 \bar{h} \to 0$ e a equação se reduz à EDO clássica com gravidade constante: $\frac{d^2\bar{h}}{d\bar{t}^2} = -1$.
+
+\subsection*{(e) Implicações Computacionais do Escalamento}
+A Figura 4 ilustra a simulação numérica sob a ótica do escalamento alternativo. Comparamos os dois métodos numéricos para $\epsilon^2 = 0.01$:
+\begin{itemize}
+    \item No \textbf{escalamento primário}, $\bar{h}$ atinge um valor máximo na ordem de $0.005$. A variável está longe de ser $\mathcal{O}(1)$.
+    \item No \textbf{escalamento alternativo}, $\bar{h}$ atinge um valor máximo de $0.503$, cumprindo perfeitamente o propósito estrito do escalamento: $\bar{h} \sim \mathcal{O}(1)$.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{ex09_alternative_scaling.pdf}
+    \caption{Trajetórias do projétil utilizando o escalamento alternativo focado na cinemática de lançamento local ($h_c = v_0^2/g$).}
+\end{figure}
+
+\textbf{Implicação Prática:} Ao lidar com pequenos valores de $\epsilon$, resolver o escalamento primário incorre em maior suscetibilidade a erros de precisão de ponto flutuante, pois a malha numérica precisa rastrear flutuações minúsculas em uma escala muito dilatada (o raio da Terra). O escalamento alternativo foca na "janela" física correta do movimento, maximizando a estabilidade do algoritmo integrador.
+
+\section*{Exercício 10: Ferramenta de Matriz Dimensional e Verificação de Escalamento}
+
+\subsection*{(a) e (b) Implementação e Testes dos Sistemas Conhecidos}
+A função \texttt{find\_pi\_groups} foi implementada em Python (script anexo) utilizando o cálculo do espaço nulo via \texttt{scipy.linalg.null\_space}. 
+
+\textbf{Resultados da Execução do Script:}
+\begin{itemize}
+    \item \textbf{(i) Bolinha em um cone:} $Rank = 3$, $N_P = 1$. \\ 
+    Obtido: $\pi_1 = \Delta_t^2 \cdot R^{-1} \cdot g$
+    \item \textbf{(ii) Pressão de gás ideal:} $Rank = 3$, $N_P = 1$. \\ 
+    Obtido: $\pi_1 = p \cdot (N/V)^{-1} \cdot m^{-1} \cdot v_{rms}^{-2}$
+    \item \textbf{(iii) Oscilador amortecido forçado:} $Rank = 3$, $N_P = 6$. \\
+    \textit{Nota Computacional:} Para os sistemas (iii) e (c), o script gerou grupos com expoentes inteiros na ordem de $10^{18}$. Isso ocorre pois o \texttt{null\_space} do SciPy utiliza Decomposição em Valores Singulares (SVD), que retorna uma base ortonormal em ponto flutuante. A racionalização dessa base arbitrária gera frações com denominadores massivos. Matematicamente, os grupos gerados são combinações lineares perfeitamente válidas dos grupos físicos fundamentais.
+\end{itemize}
+
+\textbf{Análise da Discrepância no Oscilador Forçado:}
+Para o oscilador amortecido, o Teorema de Buckingham $\pi$ prevê 6 grupos adimensionais independentes ($N_P = 9 - 3 = 6$). Entretanto, ao escalar a EDO correspondente na Aula 6, o problema foi reduzido a apenas 4 números adimensionais ($\zeta, \delta, \gamma, \beta$). 
+Essa discrepância ocorre porque o Teorema $\pi$ é uma ferramenta estritamente algébrica baseada em análise combinatória de unidades; ele desconhece a topologia da lei física. O escalamento impõe uma estrutura que a álgebra cega não enxerga: as variáveis na EDO estão acopladas em termos específicos (por exemplo, $k$ e $m$ atuam conjuntamente na frequência natural). O escalamento "absorve" graus de liberdade redundantes ao explorar a estrutura da equação, resultando em uma redução paramétrica mais enxuta que a do Teorema $\pi$.
+
+\subsection*{(c) Análise de um Novo Sistema: Ascensão Capilar}
+Como novo sistema, escolhemos a \textbf{Ascensão Capilar}, que modela a altura $h$ que um líquido atinge dentro de um tubo fino devido à tensão superficial.
+\begin{itemize}
+    \item \textbf{Variáveis relevantes ($N_V = 5$):} Altura $h$ ($L$), Tensão superficial $\gamma$ ($MT^{-2}$), Densidade do fluido $\rho$ ($ML^{-3}$), Aceleração da gravidade $g$ ($LT^{-2}$), e Raio do tubo $r$ ($L$).
+    \item \textbf{Dimensões Base ($N_D = 3$):} Massa ($M$), Comprimento ($L$), Tempo ($T$).
+\end{itemize}
+O posto da matriz dimensional montada no script é 3, resultando na previsão de $N_P = 5 - 3 = 2$ grupos adimensionais independentes. O script reportou corretamente $Rank = 3$ e $N_P = 2$, gerando combinações lineares no espaço nulo (como $\pi_2 = h^{919} \cdot \gamma^{650} \cdot \rho^{-650} \cdot g^{-650} \cdot r^{-2219}$).
+
+\textbf{Interpretação Física (Base Analítica Reduzida):}
+Através da redução de Gauss (RREF), a base de inteiros mínimos equivalente ao espaço nulo numérico revela os dois grupos físicos clássicos deste sistema:
+\begin{itemize}
+    \item $\pi_1 = \frac{h}{r}$ : A altura capilar adimensionalizada pelo tamanho característico do raio do tubo.
+    \item $\pi_2 = \frac{\gamma}{\rho g r^2}$ : Inverso do \textbf{Número de Bond} (ou Número de Eötvös). Ele quantifica a razão entre as forças capilares (tensão superficial) e as forças de corpo (gravidade). Se $\pi_2 \gg 1$, a tensão superficial domina completamente o balanço de forças e o líquido sobe pelo tubo.
+\end{itemize}
+
+\end{document}
